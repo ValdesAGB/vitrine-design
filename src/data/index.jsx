@@ -4,31 +4,37 @@ export const homeDiv = (id, title, bgColor) => {
   const DIV = styled.div`
     &:hover {
       box-shadow: 2px 2px 25px ${bgColor};
-      transition: box-shadow 250ms;
+      transition: box-shadow 500ms;
     }
   `
   return (
     <div
-      className={`col-3 ${bgColor !== 'white' ? 'text-white' : null}`}
+      className={`col-12 col-md-6 col-lg-3 ${
+        bgColor !== 'white' ? 'text-white' : null
+      }`}
       key={id}
     >
-      <DIV style={{ backgroundColor: bgColor }} className="p-4 rounded-5">
-        <div className="row align-items-center" style={{ height: '100px' }}>
-          <h5 className="col">{title}</h5>
+      <DIV
+        className="card h-100 row gx-0 gx-md-1  mb-5 "
+        style={{ backgroundColor: bgColor }}
+      >
+        <div className="card-body row align-items-center ">
+          <h5 className="card-title col-12">{title}</h5>
+
+          <p className="card-text col-12 fw-light">
+            Sample text. Click to select the text box. Click again or double
+            click to start editing the text.
+          </p>
+
+          <a
+            href="#"
+            className={`card-link  fw-light ${
+              bgColor !== 'white' ? ' text-white' : 'text-dark'
+            }`}
+          >
+            Voir plus
+          </a>
         </div>
-        <p className="fw-light">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam.
-        </p>
-        <a
-          href="#"
-          className={`fw-ligh ${
-            bgColor !== 'white' ? ' text-white' : 'text-dark'
-          }`}
-        >
-          Voir plus
-        </a>
       </DIV>
     </div>
   )
@@ -93,19 +99,19 @@ export const CapacitiesContent = [
     title: 'IDENTITÉ DE MARQUE',
     cap: [
       {
-        id: 'position',
+        ids: 'position',
         text: 'Positionnement visuel',
       },
       {
-        id: 'système',
+        ids: 'système',
         text: "Système d'identité visuelle",
       },
       {
-        id: 'guide',
+        ids: 'guide',
         text: "Guides d'icônes et d'illustrations",
       },
       {
-        id: 'demande',
+        ids: 'demande',
         text: 'Demande de marque',
       },
     ],
@@ -118,15 +124,15 @@ export const CapacitiesContent = [
     title: 'MEILLEUR STRATÉGIE',
     cap: [
       {
-        id: 'verbal',
+        ids: 'verbal',
         text: 'Identité verbale',
       },
       {
-        id: 'slogan',
+        ids: 'slogan',
         text: 'Exploration du slogan',
       },
       {
-        id: 'communication',
+        ids: 'communication',
         text: 'Guide du style de communication',
       },
     ],
@@ -135,13 +141,10 @@ export const CapacitiesContent = [
 
 export const CapacitiesContainer = () => {
   return (
-    <div className="row">
+    <>
       {CapacitiesContent.map((item) => (
-        <div key={item.id} className="col">
-          <div
-            className="card p-2 rounded-4"
-            style={{ width: ' 18rem', height: '420px' }}
-          >
+        <div key={item.id} className="col col-md-6 col-lg-4 mb-5 mb-md-0">
+          <div className="card p-2 rounded-4 h-100">
             <img
               src={item.cover}
               className="card-img-top rounded-3"
@@ -152,20 +155,19 @@ export const CapacitiesContainer = () => {
               <h5 className="card-title" style={{ color: '#e5521d ' }}>
                 {item.title}
               </h5>
-              <p className="card-text fw-light">
-                <ul>
-                  {item.cap.map((capItem) => (
-                    <li key={capItem.ids} className="my-3">
-                      {capItem.text}
-                    </li>
-                  ))}
-                </ul>
-              </p>
+
+              <ul className="card-text fw-light">
+                {item.cap.map((capItem) => (
+                  <li key={capItem.ids} className="my-3">
+                    {capItem.text}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       ))}
-    </div>
+    </>
   )
 }
 
@@ -194,7 +196,7 @@ export const AProposContent = [
 
 export const AProposContainer = (id, level, bgColor) => {
   return (
-    <div className="col-6 p-2 text-white" key={id}>
+    <div className="col-12 col-md-12 col-lg-6  p-2 text-white" key={id}>
       <div className="p-2 rounded-2" style={{ backgroundColor: bgColor }}>
         <div style={{ fontSize: '4em' }} className="text-center fw-bold">
           {level}
@@ -244,21 +246,21 @@ export const AvisContent = [
 
 export const AvisConatiner = (id, cover, name, title) => {
   return (
-    <div class="card col-6 border-0 m-4" style={{ width: '30rem' }} key={id}>
-      <div class="card-body row rounded-5">
-        <div className="col-4">
+    <div className="card col-12 col-md-6 col-lg-4 border-0 m-4 " key={id}>
+      <div className="card-body row rounded-5">
+        <div className="col-12 col-md-4">
           <img src={cover} alt={id} className="w-100" />
         </div>
 
-        <div className="col">
-          <p class="card-text fw-light" style={{ color: '#828282' }}>
-            Proin sed libero enim sed faucibus turpis. At imperdiet dui accumsan
-            sit amet nulla facilisi morbi tempus. Ut sem nulla pharetra diam sit
-            amet nisl.
+        <div className="col-12 col-md mt-4 mt-md-0">
+          <p className="card-text fw-light" style={{ color: '#828282' }}>
+            "Proin sed libero enim sed faucibus turpis. At imperdiet dui
+            accumsan sit amet nulla facilisi morbi tempus. Ut sem nulla pharetra
+            diam sit amet nisl."
           </p>
-          <h5 class="card-title mb-4">{name}</h5>
+          <h5 className="card-title mb-4">{name}</h5>
           <h6
-            class="card-subtitle mb-2 text-body-secondary"
+            className="card-subtitle mb-2 text-body-secondary"
             style={{ color: '#828282' }}
           >
             {title}
@@ -288,15 +290,21 @@ export const ContactContent = [
 
 export const ContactContainer = (id, icone, title, text) => {
   return (
-    <div key={id} className="row my-3">
+    <div key={id} className=" row my-3">
       <i
-        className={` fs-1 col-2 p-1 text-center ${icone}`}
+        className={` fs-2 col-3 col-md-2 p-1 text-center ${icone}`}
         style={{ color: '#d57958' }}
       />
 
-      <span className="col" style={{ color: '#828282' }}>
+      <span className="col-9 col-md d-none d-md-block">
         <h4>{title}</h4>
         <p className="fw-light">{text}</p>
+      </span>
+      <span className="col-9 col-md d-md-none d-block">
+        <h5>{title}</h5>
+        <p className="fw-light" style={{ fontSize: '0.8em' }}>
+          {text}
+        </p>
       </span>
     </div>
   )
