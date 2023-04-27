@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/vitrine-design/static/js/main.efe73c87.js",
+    "main.js": "/vitrine-design/static/js/main.d810acdc.js",
     "index.html": "/vitrine-design/index.html",
-    "main.efe73c87.js.map": "/vitrine-design/static/js/main.efe73c87.js.map"
+    "main.d810acdc.js.map": "/vitrine-design/static/js/main.d810acdc.js.map"
   },
   "entrypoints": [
-    "static/js/main.efe73c87.js"
+    "static/js/main.d810acdc.js"
   ]
 }
