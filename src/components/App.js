@@ -11,7 +11,7 @@ import Header from './Header'
 function App() {
   const GlobalStyle = createGlobalStyle`
   *{
-    font-family : "Montserrat";
+    font-family: "montserrat";
   }
   `
   return (

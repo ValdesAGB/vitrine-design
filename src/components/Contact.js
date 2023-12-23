@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { ContactContainer, ContactContent } from '../data'
 
 function Contact() {
@@ -9,12 +9,60 @@ function Contact() {
     background-size: cover;
     background-position: center;
   `
+
+  const [alert, setAlert] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const contactElem = document.getElementById('contact')
+      const top = contactElem.getBoundingClientRect().top
+      if (top < window.innerHeight && top > 0) {
+        setAlert(true)
+      }
+    }
+
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const fadeInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
+
+  const fadeInLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
+
+  const FadeInRightDiv = styled.div`
+    animation: ${fadeInRight} 1s ease;
+  `
+  const FadeInLeftDiv = styled.div`
+    animation: ${fadeInLeft} 1s ease;
+  `
+
   return (
     <React.Fragment>
       <DIV className="row" id="contact">
         <div className="container my-5 my-md-0">
           <div className="row gy-5 m-0 m-md-5 justify-content-center ">
-            <div
+            <FadeInLeftDiv
               className="col rounded-5 p-5 "
               style={{ backgroundColor: 'white' }}
             >
@@ -37,9 +85,9 @@ function Contact() {
                   ContactContainer(id, icone, title, text)
                 )}
               </div>
-            </div>
+            </FadeInLeftDiv>
 
-            <div
+            <FadeInRightDiv
               className="col rounded-5 offset-0 offset-md-1 p-5 "
               style={{ backgroundColor: '#2abbca' }}
             >
@@ -104,7 +152,7 @@ function Contact() {
                   </button>
                 </form>
               </div>
-            </div>
+            </FadeInRightDiv>
           </div>
         </div>
       </DIV>

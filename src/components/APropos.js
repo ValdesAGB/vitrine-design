@@ -1,16 +1,88 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AProposContainer, AProposContent } from '../data'
+import styled, { keyframes } from 'styled-components'
 
 function APropos() {
+  const [alert, setAlert] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const contactElem = document.getElementById('aboutus')
+      const top = contactElem.getBoundingClientRect().top
+      if (top < window.innerHeight && top > 0) {
+        setAlert(true)
+      }
+    }
+
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const fadeInLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
+  const FadeInLeftDiv = styled.div`
+    animation: ${fadeInLeft} 1s ease;
+  `
+
+  const zoomInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+`
+  const fadeInRight = keyframes`
+from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+to {
+  opacity: 1;
+  transform: translateX(0);
+}
+`
+
+  const ZoomDiv = styled.div`
+    animation: ${zoomInAnimation} 1s both;
+  `
+
+  const ZoomImg = styled.img`
+    animation: ${zoomInAnimation} 1s both;
+  `
+
+  const FadeInRightDiv = styled.div`
+    animation: ${fadeInRight} 1s ease-out;
+  `
+
   return (
     <React.Fragment>
       <section className="container mb-5 " id="aboutus">
         <div className=" my-5">
           <div className="row align-items-center  justify-content-center">
-            <div className="col-12 col-md-6">
+            <FadeInLeftDiv className="col-12 col-md-6">
               <h4 className="my-3 fw-lighter">À PROPOS DE NOUS</h4>
-              <h1>Nous fournissons des conceptions Web personnalisées</h1>
-              <h4 style={{ color: '#999999' }}>
+              <h1 className="fw-bold">
+                Nous fournissons des conceptions Web personnalisées
+              </h1>
+              <h4 style={{ color: '#999999', fontWeight: '600' }}>
                 NOUS TRAVAILLONS DIRECTEMENT POUR NOS CLIENTS ET ACCORDONS LA
                 PRIORITÉ AUX INTÉRÊTS DU CLIENT.
               </h4>
@@ -22,11 +94,11 @@ function APropos() {
                 en passant par le système d'attraction des clients via Internet
                 et le système de vente.
               </p>
-            </div>
+            </FadeInLeftDiv>
 
             <div className="col-12 col-md-6 row justify-content-center">
               {AProposContent.map(({ id, level, bgColor }) =>
-                AProposContainer(id, level, bgColor)
+                AProposContainer(id, level, bgColor, ZoomDiv)
               )}
             </div>
           </div>
@@ -35,26 +107,28 @@ function APropos() {
         <div className="row">
           <div className=" col-12 col-lg-5">
             <div className="mb-5 ">
-              <img
+              <ZoomImg
                 src="https://images01.nicepage.com/c461c07a441a5d220e8feb1a/c3a8cd3730345e9f90b4ca24/jhjhj.jpg"
                 alt="canette"
                 className="w-100 rounded-5"
               />
             </div>
 
-            <h1 className="fw-bold row">
-              Marque, expériences et collaboration radicale
-            </h1>
+            <FadeInLeftDiv>
+              <h1 className="fw-bold row">
+                Marque, expériences et collaboration radicale
+              </h1>
 
-            <p className="fw-light row">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam.
-            </p>
+              <p className="fw-light row">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam.
+              </p>
+            </FadeInLeftDiv>
           </div>
 
           <div className="col-12 col-lg ">
-            <div
+            <ZoomDiv
               className="offset-0  offset-lg-1 rounded-5 mt-4 mb-5 h-50"
               style={{ backgroundColor: '#f2f2f2' }}
             >
@@ -70,13 +144,13 @@ function APropos() {
                 mattis. Pellentesque elit ullamcorper dignissim cras tincidunt
                 lobortis feugiat vivamus at.
               </p>
-            </div>
+            </ZoomDiv>
 
-            <div className=" offset-0 offset-lg-1 my-3">
+            <FadeInRightDiv className=" offset-0 offset-lg-1">
               <h3 style={{ color: '#e5521d ' }} className="fw-bold row">
                 TRADUIRE 100 ANS DE SERVICE EN UN AVENIR NUMÉRIQUE
               </h3>
-              <p className="mt-2 mt-md-3  mt-lg-5 fw-light row">
+              <p className="mt-2 mt-md-3  mt-lg-4 fw-light row">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse
                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                 cupidatat non proident, sunt in culpa qui officia deserunt
@@ -85,7 +159,7 @@ function APropos() {
               <button className="btn bg-dark text-white p-3 row fs-5 mb-5 col-8 col-md-6 rounded-5">
                 LIRE LA SUITE
               </button>
-            </div>
+            </FadeInRightDiv>
           </div>
         </div>
       </section>

@@ -12,7 +12,7 @@ function Header() {
         <div className="row align-items-center ">
           <div className="col-3">
             <h1>
-              <a className="text-decoration-none text-dark" href="#accueil">
+              <a className="text-decoration-none text-dark" href="#">
                 Votre logo
               </a>
             </h1>

@@ -1,7 +1,23 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
-export const homeDiv = (id, title, bgColor) => {
+export const homeDiv = (id, title, bgColor, ZoomDiv) => {
+  const zoomInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+`
+
   const DIV = styled.div`
+    animation: ${zoomInAnimation} 1500ms both;
     &:hover {
       box-shadow: 2px 2px 25px ${bgColor};
       transition: box-shadow 500ms;
@@ -19,7 +35,7 @@ export const homeDiv = (id, title, bgColor) => {
         style={{ backgroundColor: bgColor }}
       >
         <div className="card-body row align-items-center ">
-          <h5 className="card-title col-12">{title}</h5>
+          <h5 className="card-title col-12 fw-bold">{title}</h5>
 
           <p className="card-text col-12 fw-light">
             Sample text. Click to select the text box. Click again or double
@@ -139,34 +155,47 @@ export const CapacitiesContent = [
   },
 ]
 
-export const CapacitiesContainer = () => {
+export const CapacitiesContainer = (
+  FadeInRightCard,
+  FadeInLeftCard,
+  FadInUpCard
+) => {
+  const animations = [FadeInLeftCard, FadInUpCard, FadeInRightCard]
+
   return (
     <>
-      {CapacitiesContent.map((item) => (
-        <div key={item.id} className="col col-md-6 col-lg-4 mb-5 mb-md-0">
-          <div className="card p-2 rounded-4 h-100">
-            <img
-              src={item.cover}
-              className="card-img-top rounded-3"
-              alt={item.title}
-              style={{ height: '150px' }}
-            />
-            <div className="card-body mt-2">
-              <h5 className="card-title" style={{ color: '#e5521d ' }}>
-                {item.title}
-              </h5>
+      {CapacitiesContent.map((item, index) => {
+        const AnimatedDiv = animations[index % animations.length]
 
-              <ul className="card-text fw-light">
-                {item.cap.map((capItem) => (
-                  <li key={capItem.ids} className="my-3">
-                    {capItem.text}
-                  </li>
-                ))}
-              </ul>
+        return (
+          <AnimatedDiv
+            key={item.id}
+            className="col col-md-6 col-lg-4 mb-5 mb-md-0"
+          >
+            <div className="card p-2 rounded-4 h-100">
+              <img
+                src={item.cover}
+                className="card-img-top rounded-3"
+                alt={item.title}
+                style={{ height: '150px' }}
+              />
+              <div className="card-body mt-2">
+                <h5 className="card-title" style={{ color: '#e5521d ' }}>
+                  {item.title}
+                </h5>
+
+                <ul className="card-text fw-light">
+                  {item.cap.map((capItem) => (
+                    <li key={capItem.ids} className="my-3">
+                      {capItem.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          </AnimatedDiv>
+        )
+      })}
     </>
   )
 }
@@ -194,9 +223,9 @@ export const AProposContent = [
   },
 ]
 
-export const AProposContainer = (id, level, bgColor) => {
+export const AProposContainer = (id, level, bgColor, ZoomDiv) => {
   return (
-    <div className="col-12 col-md-12 col-lg-6  p-2 text-white" key={id}>
+    <ZoomDiv className="col-12 col-md-12 col-lg-6  p-2 text-white" key={id}>
       <div className="p-2 rounded-2" style={{ backgroundColor: bgColor }}>
         <div style={{ fontSize: '4em' }} className="text-center fw-bold">
           {level}
@@ -206,7 +235,7 @@ export const AProposContainer = (id, level, bgColor) => {
           to start editing the text.
         </p>
       </div>
-    </div>
+    </ZoomDiv>
   )
 }
 
@@ -244,9 +273,9 @@ export const AvisContent = [
   },
 ]
 
-export const AvisConatiner = (id, cover, name, title) => {
+export const AvisConatiner = (id, cover, name, title, ZoomDiv) => {
   return (
-    <div className="card col-12 col-md-6 col-lg-4 border-0 m-4 " key={id}>
+    <ZoomDiv className="card col-12 col-md-6 col-lg-4 border-0 m-4 " key={id}>
       <div className="card-body row rounded-5">
         <div className="col-12 col-md-4">
           <img src={cover} alt={id} className="w-100" />
@@ -258,7 +287,9 @@ export const AvisConatiner = (id, cover, name, title) => {
             accumsan sit amet nulla facilisi morbi tempus. Ut sem nulla pharetra
             diam sit amet nisl."
           </p>
-          <h5 className="card-title mb-4">{name}</h5>
+          <h5 className="card-title mb-4" style={{ fontWeight: '700' }}>
+            {name}
+          </h5>
           <h6
             className="card-subtitle mb-2 text-body-secondary"
             style={{ color: '#828282' }}
@@ -267,7 +298,7 @@ export const AvisConatiner = (id, cover, name, title) => {
           </h6>
         </div>
       </div>
-    </div>
+    </ZoomDiv>
   )
 }
 
@@ -314,7 +345,7 @@ export const MenuContent = [
   {
     id: '1',
     title: 'Accueil',
-    href: '#accueil',
+    href: '#',
   },
 
   {
